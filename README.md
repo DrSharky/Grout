@@ -1,4 +1,4 @@
 Vampire: The Masquerade - Bloodlines
 Grout site
 
-Inspired by https://debofnight.andcuriouser.com
+Inspired by http://debofnight.andcuriouser.com/
