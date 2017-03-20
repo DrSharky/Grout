@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Grout</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="global.css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css' />
+
+	<script type="text/javascript">
+
+		ratio = 16/9;
+		episodes = ["dictation_message_1.mp3", "dictation_message_2.mp3", "dictation_message_3.mp3", "dictation_message_4.mp3", "dictation_message_5.mp3",
+					"dictation_message_6.mp3", "dictation_message_7.mp3", "dictation_message_8.mp3", "dictation_message_9.mp3"];
+		current = 0;
+	
+		function playnext() {
+			$('#radio').attr('src', 'audio/'+episodes[current]);
+			$('#radio').trigger('play');
+			current += 1;
+		}
+	
+		function resize() {
+			$('.layer').css("height", $(window).height());
+			$('.layer').css("width", $(window).width());
+			if(($(window).width()/ratio) > $(window).height()) {
+				$('.scale').css("width", $(window).width());
+				$('.scale').css("height", $(window).width()/ratio);
+			} else {
+				$('.scale').css("width", $(window).height()*ratio);
+				$('.scale').css("height", $(window).height());
+			}
+		}
+		
+		<!-- function moverain() { -->
+			<!--$('#rain').css("background-position", (Math.random()*125 + "px " + Math.random()*125 + "px"));-->
+		<!--} -->
+		
+		$(document).ready(function() {
+			<!--setInterval(moverain, 25);-->
+			resize();
+			$(window).bind("resize", function(){ resize() });
+			$('#radio').bind("ended", function(){ playnext() });
+			playnext();
+		});
+		
+	</script>
+</head>
+<body>
+	<div id="background" class="layer">
+		<img class="scale" src="background.jpg" />
+	</div>
+<!-- 	<div id="rain" class="layer"></div>
+	<div id="foreground" class="layer">
+		<img class="scale" src="foreground.png" />
+	</div> -->
+<!--
+	<div id="content">
+		<h2>You've tuned in to</h2>
+		<h1>The Deb of Night</h1>
+	</div>
+-->
+	<div id="controls">
+		<audio controls="controls" id="radio">
+			<source type="audio/mp3" />
+			Your browser does not support the audio element.
+		</audio>
+		<audio id="storm" autoplay loop>
+			<source type="audio/mp3" src="audio/disturbed_and_twisted.mp3" />
+		</audio>
+	</div>
+	<div id="credit">
+		now go buy <a href="http://store.steampowered.com/app/2600/">vampire: the masquerade - bloodlines</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Droid Sans Mono";
+	text-transform: uppercase;
+	background: #000;
+}
+
+.layer {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#content {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+a {
+	color: #728493;
+}
+
+	a:hover {
+		color: #fff;
+	}
+
+#rain {
+	background: url("rain.png");
+	background-position: 10 10;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+	color: #9fb4c6;
+	margin: 80px;
+	text-shadow: 1px 1px 4px #666;
+}
+
+	h1 {
+		margin-top: -80px;
+		font-size: 24px;
+		color: #acc7df;
+	}
+
+	h2 {
+		margin-top: 160px;
+		font-size: 12px;
+		color: #9fb4c6;
+	}
+
+#controls {
+	position: absolute;
+	bottom: 80px;
+	right: 80px;
+	color: #acc7df;
+	font-size: 12px;
+	opacity: .3;
+}
+
+#credit {
+	position: absolute;
+	bottom: 40px;
+	right: 80px;
+	font-size: 12px;
+	color: #454f58;
+}
+
+.spam {
+	display: none;
+	
+}
