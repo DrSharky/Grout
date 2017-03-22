@@ -6,84 +6,77 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="global.css" />
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css' />
-
 	<script type="text/javascript">
-
 		ratio = 16/9;
 		episodes = ["dictation_message_1.mp3", "dictation_message_2.mp3", "dictation_message_3.mp3", "dictation_message_4.mp3", "dictation_message_5.mp3",
 					"dictation_message_6.mp3", "dictation_message_7.mp3", "dictation_message_8.mp3", "dictation_message_9.mp3"];
 		current = 0;
-		
 		var img = new Image();
 		img.onload = start;
 		img.src = "background.jpg";
-		
+
 		function start() {
-		var canvas = document.querySelector("canvas");
-		var ctx = canvas.getContext("2d");
+			var canvas = document.querySelector("canvas");
+			var ctx = canvas.getContext("2d");
 
-		function mix(a, b, l) {
-			return a + (b - a) * l;
-		}
-  
-		function upDown(v) {
-			return Math.sin(v) * 0.1 + 0.1;
-		}
-  
-		function render(time) {
-			time *= 0.001;
-	
-			resize(canvas);
-
-			var t1 = time;
-			var t2 = time * 0.37;
-
-			// for each line in the canvas
-			for (var dstY = 0; dstY < canvas.height; ++dstY) {
-      
-			// v is value that goes 0 to 1 down the canvas
-			var v = dstY / canvas.height;
-      
-			// compute some amount to offset the src
-			var off1 = Math.sin((v + 0.1) * mix(3, 12, upDown(t1))) * 300;
-			var off2 = Math.sin((v + 0.1) * mix(3, 12, upDown(t2))) * 300;
-			var off = off1 + off2;
-      
-			// compute what line of the source image we want
-			// NOTE: if off = 0 then it would just be stretching
-			// the image down the canvas.
-			var srcY = dstY * img.height / canvas.height + off;
-      
-			// clamp srcY to be inside the image
-			srcY = Math.max(0, Math.min(img.height - 1, srcY));
-
-			// draw a single line from the src to the canvas
-			ctx.drawImage(
-				img, 
-				0, srcY, img.width, 1, 
-				0, dstY, canvas.width, 1);
-			}    
-    
-			requestAnimationFrame(render);
-		}
-		requestAnimationFrame(render);
-
-		function resize(canvas) {
-			var width = canvas.clientWidth;
-			var height = canvas.clientHeight;
-			if (width != canvas.width || height != canvas.height) {
-			canvas.width = width;
-			canvas.height = height;
+			function mix(a, b, l) {
+				return a + (b - a) * l;
 			}
+
+			function upDown(v) {
+				return Math.sin(v) * 0.1 + 0.1;
+			}
+
+			function render(time) {
+				time *= 0.000032;
+				var t1 = time * 0.37;
+				var t2 = time * 0.62;
+
+				resize(canvas);
+
+				// for each line in the canvas
+				for (var dstY = 0; dstY < canvas.height; ++dstY) {
+
+					// v is value that goes 0 to 1 down the canvas
+					var v = dstY / canvas.height;
+
+					// compute some amount to offset the src
+					var off1 = Math.sin((v + 0.1) * mix(3, 69, upDown(t1))) * 30;
+					var off2 = Math.sin((v + 0.1) * mix(3, 12, upDown(-t2))) * 30;
+					var off = off1 + off2;
+
+					// compute what line of the source image we want
+					// NOTE: if off = 0 then it would just be stretching
+					// the image down the canvas.
+					var srcY = dstY * img.height / canvas.height + off;
+
+					// clamp srcY to be inside the image
+					srcY = Math.max(0, Math.min(img.height - 2, srcY));
+
+					//draw the image on the canvas
+					ctx.drawImage(img, 0, srcY, img.width, 1, 0, dstY, canvas.width, 1);
+					}
+
+					requestAnimationFrame(render);
+				}
+				requestAnimationFrame(render);
+
+				function resize(canvas) {
+					var width = canvas.clientWidth;
+					var height = canvas.clientHeight;
+					if (width != canvas.width || height != canvas.height) {
+						canvas.width = width;
+						canvas.height = height;
+					}
+				}
 		}
-		}
-	
+
 		function playnext() {
-			$('#radio').attr('src', 'audio/'+episodes[current]);
-			$('#radio').trigger('play');
+			$('#grout').attr('src', 'audio/'+episodes[current]);
+			$('#grout').trigger('play');
 			current += 1;
 		}
-	
+
 		function resize() {
 			$('.layer').css("height", $(window).height());
 			$('.layer').css("width", $(window).width());
@@ -95,34 +88,33 @@
 				$('.scale').css("height", $(window).height());
 			}
 		}
-		
 
-		
+
+
 		$(document).ready(function() {
 			resize();
 			$(window).bind("resize", function(){ resize() });
 			$('#radio').bind("ended", function(){ playnext() });
 			playnext();
 		});
-		
+
 	</script>
 </head>
 <body>
-	<!-- <div id="background" class="layer">
-		<img class="scale" src="background.jpg" />
-	</div> -->
 	<canvas></canvas>
 	<div id="controls">
-		<audio controls="controls" id="radio">
+		<audio controls="controls" id="grout">
 			<source type="audio/mp3" />
 			Your browser does not support the audio element.
 		</audio>
-		<audio id="storm" autoplay loop>
+		<audio id="twisted" autoplay loop>
 			<source type="audio/mp3" src="audio/disturbed_and_twisted.mp3" />
 		</audio>
 	</div>
 	<div id="credit">
 		now go buy <a href="http://store.steampowered.com/app/2600/">vampire: the masquerade - bloodlines</a>
+		<br />
+		Inspired by <a href="http://debofnight.andcuriouser.com/">Deb of Night</a>
 	</div>
 </body>
 </html>
