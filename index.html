@@ -28,7 +28,7 @@
 			}
 
 			function render(time) {
-				time *= 0.000032;
+				time *= 0.00018;
 				var t1 = time * 0.37;
 				var t2 = time * 0.62;
 
@@ -41,7 +41,7 @@
 					var v = dstY / canvas.height;
 
 					// compute some amount to offset the src
-					var off1 = Math.sin((v + 0.1) * mix(3, 69, upDown(t1))) * 30;
+					var off1 = Math.sin((v + 0.1) * mix(3, 18, upDown(t1))) * 30;
 					var off2 = Math.sin((v + 0.1) * mix(3, 12, upDown(-t2))) * 30;
 					var off = off1 + off2;
 
@@ -51,7 +51,7 @@
 					var srcY = dstY * img.height / canvas.height + off;
 
 					// clamp srcY to be inside the image
-					srcY = Math.max(0, Math.min(img.height - 2, srcY));
+					srcY = Math.max(0, Math.min(img.height - 1, srcY));
 
 					//draw the image on the canvas
 					ctx.drawImage(img, 0, srcY, img.width, 1, 0, dstY, canvas.width, 1);
