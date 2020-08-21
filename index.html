@@ -14,7 +14,7 @@
 		var img = new Image();
 		img.onload = start;
 		img.src = "background.jpg";
-
+		
 		function start() {
 			var canvas = document.querySelector("canvas");
 			var ctx = canvas.getContext("2d");
@@ -88,8 +88,10 @@
 				$('.scale').css("height", $(window).height());
 			}
 		}
-
-
+		
+		function playtwisted(){
+		$('#twisted').trigger('play');
+		}
 
 		$(document).ready(function() {
 			resize();
@@ -103,7 +105,7 @@
 <body>
 	<canvas></canvas>
 	<div id="controls">
-		<audio controls="controls" id="grout">
+		<audio controls="controls" onplay="playtwisted()" id="grout">
 			<source type="audio/mp3" />
 			Your browser does not support the audio element.
 		</audio>
